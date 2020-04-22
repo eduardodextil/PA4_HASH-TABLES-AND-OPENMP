@@ -1,0 +1,2 @@
+Time of Insertion
+CPU Elapsed time in seconds: 0.024 Seconds
