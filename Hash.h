@@ -2,7 +2,7 @@
  *  Yet another Hash table interface
  * 
  *  Contributors:
- *      Aaron S. Crandall <acrandal@wsu.edu> - 2019
+ *      Aubryn King <aubryn.king@wsu.edu> - 2019
  *      Sean Kallaher <seanp@kallaher.org> - 2019
  * 
  */
@@ -83,7 +83,7 @@ private:
 
 // This is required to make Hash a pure virtual (abstract) class
 template <typename K, typename V>
-Hash<K, V>::~Hash() {}
+Hash<K, V>::~Hash() {std::cout<<"inside hash destructor"<<std::endl;}
 
 
 #endif
