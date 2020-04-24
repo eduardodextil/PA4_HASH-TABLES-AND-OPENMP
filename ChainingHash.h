@@ -15,7 +15,7 @@
 
 // Custom project includes
 #include "Hash.h"
-//wet
+
 // Namespaces to include
 using std::vector;
 using std::list;
@@ -64,6 +64,7 @@ public:
         return cur_Size;
     }
 
+    //Returns the value with key k
     V& at(const K& key) {
         int index = hash(key);
         auto entry = hash_table[index];
@@ -71,13 +72,17 @@ public:
             if(val.first == key)
                 return val.second;
         }
-        throw std::out_of_range("Key not in hash");
+        //throw std::out_of_range("Key not in hash");
+        cout << "[WARNING!!!!] Key not found" << endl;
+        //return 0;
     }
 
+    //Returns the value with key k
     V& operator[](const K& key) {
         return this->at(key);
     }
 
+    //Returns the number of elements with key k
     int count(const K& key) {
         int count = 0;
         int index = hash(key);
@@ -102,37 +107,51 @@ public:
         int key = pair.first;
         int index = hash(key);
         auto& entry = hash_table[index];
+        //checking if the key exist in the list
         if(count(key)){
             for(auto it = entry.begin(); it != entry.end(); it++){
                 if(it->first == key){
                     *it = pair;
+                    cout <<"[WARNING ] KEY EXIST, VALUE REPLACED" <<endl;
                     return;
                 }
             }
         }
         else{
+            //if key does not exist, pushing back into the list
             entry.push_back(pair);
             cur_Size++;
         }
     }
 
     //Erasing based on Key
-    void erase(const K& key) {
+   void erase(const K& key) {
+       //return if hash table is empty
         if(this->empty()) return;
-        int index = hash(key);
+        //int index = hash(key);
+        int index = bucket(key);
         auto &entry = hash_table[index];
         bool found = false;
-        for(auto itr = entry.begin(); itr != entry.end(); itr++){
-            if(itr->first == key){
-                entry.erase(itr);
+        for(auto it = entry.begin(); it != entry.end(); it++){
+            if(it->first == key){
+                it = entry.erase(it);
                 cur_Size--;
+                cout <<"[WARNING!!!!] Item removed" <<endl;
                 found = true;
             }
         }
-        if (!found){
-            throw std::out_of_range("Key not in hash");
+        if (!found){// if the item was not removed 
+            //throw std::out_of_range("Key not in hash");
+
+            cout << "The key is not removed " << endl;
+
         }
+        return;
     }
+
+    
+
+
 
     //Clears the Hash table
     void clear() {
@@ -146,6 +165,7 @@ public:
         return x_bucket_count;
     }
 
+    //Returns the number of elements in bucket n (0, 1, or length of list if chaining)
     int bucket_size(int n) {
         if(n>=x_bucket_count){
             throw std::out_of_range("Input Bucket count out of range");
@@ -154,6 +174,7 @@ public:
         return entry.size();
     }
 
+    //Returns the bucket number of key (or throws std::out_of_range if key not found)
     int bucket(const K& key) {
         int index = hash(key);
         auto entry = hash_table[index];
@@ -161,7 +182,9 @@ public:
             if(val.first == key)
                 return index;
         }
-        throw std::out_of_range("Key not in hash");
+        //throw std::out_of_range("Key not in hash");
+        cout << "Key not in the hash" << endl;
+        return 0;
     }
 
     // calculates the load factor and returns the load factor
@@ -181,7 +204,7 @@ public:
     void rehash(int n) {
         auto temp = hash_table;
         clear();
-        x_bucket_count = findNextPrime(n);
+        x_bucket_count = findNextPrime(2*n);
         hash_table.resize(x_bucket_count);
         for(uint i = 0; i < temp.size(); i++){
             auto entry = temp[i];
@@ -242,8 +265,8 @@ void test_Functions()
     Chains.bucket_count();
     cout <<"The Bucket count after insertion is : " << Chains.bucket_count() << endl;
 
-    
-    
+    //testing the content of a value based on a key
+    cout <<"Inside bucket 5: " <<Chains.at(5)<< endl;
 
     //checking for specific buckets
     cout <<"Checking bucket 5: " << Chains.bucket(5) << endl;
@@ -282,12 +305,13 @@ void test_Erase()
     Chains.insert(std::make_pair(7,7));
     Chains.insert(std::make_pair(13,13));
     //Erasing based on Key
-    Chains.erase(10);
-   // Chains.erase(5);
+    
+   Chains.erase(5);
+   cout <<"Checking bucket 5: " << Chains.bucket(5) << endl;
    
 
     //checking if key exists in the bucket
-    cout << "THe bucket size of 5 is : " << Chains.bucket(5) << endl;
+   // cout << "THe bucket size of 5 is : " << Chains.bucket(5) << endl;
     //cout << "THe bucket size of 9 is : " << Chains.bucket(9) << endl;
     //cout << "THe bucket size of 4 is : " << Chains.bucket(4) << endl;
     //cout << "THe bucket size of 1 is : " << Chains.bucket(1) << endl;
