@@ -1,2 +1,18 @@
-Time of Insertion
-CPU Elapsed time in seconds: 0.024 Seconds
+Time of Insertion for keys 1 - 1,000,000 
+CPU Elapsed time in seconds: 1.61324 Seconds
+
+Time elasped while searching for value with a key 177 
+CPU Elapsed time in seconds: 5.7e-05 Seconds
+
+Time elasped while searching for value with a key 2000000 
+CPU Elapsed time in seconds: 6e-06 Seconds
+
+The time elasped for removing value with key 177
+CPU Elapsed time in seconds: 4e-06 Seconds
+
+Final size of the hash tables is: 999999
+
+Final bucket count is 2167393
+
+Final Load Factor is 0.461383
+
