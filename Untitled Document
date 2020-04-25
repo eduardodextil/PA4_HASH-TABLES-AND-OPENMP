@@ -1,0 +1,11 @@
+CXX = g++ 
+CXXFLAGS = -g -c -Wall -std=c++11
+all: PA4
+PA4: main.o 
+	g++ main.cpp -o PArun
+main.o: main.cpp ChainingHash.h ProbingHash.h
+	g++ main.cpp -fpermissive -fopenmp 
+clean: 
+	rm -rf *o PArun
+run:
+	@./PArun
