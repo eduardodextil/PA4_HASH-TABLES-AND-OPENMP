@@ -83,7 +83,9 @@ private:
 
 // This is required to make Hash a pure virtual (abstract) class
 template <typename K, typename V>
-Hash<K, V>::~Hash() {}
+Hash<K, V>::~Hash() {
+    std::cout<<"inside hash destructor"<<std::endl;
+}
 
 
 #endif

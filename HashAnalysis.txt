@@ -1,3 +1,15 @@
+
+Linear Probing parallel time to insert 1000000 elements: 0.000748
+Linear Probing parallel time to search for 177: 2e-06
+Linear Probing serial time to search for 177: 1e-06
+Linear Probing parallel time to search for 2000000: 2.5e-05
+Linear Probing serial time to search for 2000000: 2.5e-05
+Linear Probing parallel time to erase 177: 1e-06
+Linear Probing serial time to erase 177: 5.3e-05
+Linear Probing final table size: 1597
+Linear Probing final number of elements: 999
+Linear Probing final load factor: 0.625548
+
 Time of Insertion for keys 1 - 1,000,000 
 CPU Elapsed time in seconds: 1.61324 Seconds
 
@@ -15,4 +27,5 @@ Final size of the hash tables is: 999999
 Final bucket count is 2167393
 
 Final Load Factor is 0.461383
+
 
