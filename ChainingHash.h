@@ -174,15 +174,16 @@ public:
     //rehashing when the exceeds 0.75 
     void rehash() {
         cout << "REHASHING !!!" << endl;
-        rehash(x_bucket_count + 1);
+        rehash(x_bucket_count + 1); 
     }
 
     //helper function for rehashing 
     void rehash(int n) {
         auto temp = hash_table;
         clear();
-        x_bucket_count = findNextPrime(n);
+        x_bucket_count = findNextPrime(2*n); //made it resize to twice next prime
         hash_table.resize(x_bucket_count);
+        std::cout<<"new tablesize:"<<hash_table.size()<<std::endl;
         for(uint i = 0; i < temp.size(); i++){
             auto entry = temp[i];
             for(auto val : entry){
@@ -223,7 +224,31 @@ private:
 
 };
 
+void testChainInsert(void)
+{
+    Hash<int, int> * garbage = new ChainingHash<int, int>;
+    garbage->emplace(4,4);
+    std::cout<<"loadFactor 4:"<<garbage->load_factor()<<std::endl;
+    garbage->emplace(15,15);
+        std::cout<<"loadFactor 15:"<<garbage->load_factor()<<std::endl;
+    garbage->emplace(26,26);
+        std::cout<<"loadFactor 26:"<<garbage->load_factor()<<std::endl;
+garbage->emplace(7,7);
+    std::cout<<"loadFactor 7:"<<garbage->load_factor()<<std::endl;
+garbage->emplace(8,8);
+    std::cout<<"loadFactor 8:"<<garbage->load_factor()<<std::endl;
+garbage->emplace(9,9);
+    std::cout<<"loadFactor 9:"<<garbage->load_factor()<<std::endl;
+garbage->emplace(0,0);
+    std::cout<<"loadFactor 0:"<<garbage->load_factor()<<std::endl;
+garbage->emplace(16,16);
+    std::cout<<"loadFactor 16:"<<garbage->load_factor()<<std::endl;
+garbage->emplace(17, 17);
+    std::cout<<"loadFactor 17:"<<garbage->load_factor()<<std::endl;
+garbage->emplace(18, 18);
+    std::cout<<"loadFactor 18:"<<garbage->load_factor()<<std::endl;
 
+}
 void test_Functions()
 {   
     //Testing Insertions
